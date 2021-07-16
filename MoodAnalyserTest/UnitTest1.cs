@@ -6,11 +6,11 @@ namespace MoodAnalyzerTest
     public class UnitTest1
     {
         MoodAnalyze moodAnalyzer;
-        string message = "I am in happy mood";
+      
         [TestInitialize]
         public void Setup()
         {
-            moodAnalyzer = new MoodAnalyze(message);
+            moodAnalyzer = new MoodAnalyze("message");
         }
 
         [TestMethod]
@@ -20,7 +20,7 @@ namespace MoodAnalyzerTest
             string expected = "happy";
 
             //act
-            string actual = moodAnalyzer.AnalyseMood(message);
+            string actual = moodAnalyzer.AnalyseMood("I am in happy mood");
             //assert
             Assert.AreEqual(expected, actual);
 
@@ -36,5 +36,19 @@ namespace MoodAnalyzerTest
             Assert.AreEqual(expected, actual);
 
         }
+        //mood should not be null
+        [TestMethod]
+        public void NULLReferenceTest()
+        {
+            //assign
+            string expected = "happy";
+            string message = null;
+            //act
+            string actual = new MoodAnalyze(message).AnalyseMood("happy");
+            //assert
+            Assert.AreEqual(expected, actual);
+
+        }
+
     }
 }
