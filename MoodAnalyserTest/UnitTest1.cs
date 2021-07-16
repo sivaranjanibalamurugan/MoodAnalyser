@@ -10,15 +10,15 @@ namespace MoodAnalyzerTest
         [TestInitialize]
         public void Setup()
         {
-            moodAnalyzer = new MoodAnalyze();
+            moodAnalyzer = new MoodAnalyze(message);
         }
-      
+
         [TestMethod]
         public void ReturnHappyTest()
         {
             //assign
             string expected = "happy";
-            
+
             //act
             string actual = moodAnalyzer.AnalyseMood(message);
             //assert

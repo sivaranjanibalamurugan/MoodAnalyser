@@ -10,7 +10,10 @@ namespace MoodAnalyzer
     {
         //instance varriable
         string message;
-       
+        public MoodAnalyze(string message)
+        {
+            this.message = message;
+        }
         public string AnalyseMood(string message)
         {
          
