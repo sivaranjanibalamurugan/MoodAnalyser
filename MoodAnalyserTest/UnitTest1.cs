@@ -79,7 +79,7 @@ namespace MoodAnalyzerTest
 
         }
         /// <summary>
-        /// T.C=4.1 Returns the mood analyser object with reflection-> Equal
+        // Returns the mood analyser object with reflection-> Equal
         /// </summary>
         [TestMethod]
         public void ReturnMoodAnalyserObjectWithReflection()
@@ -120,7 +120,48 @@ namespace MoodAnalyzerTest
                 Assert.AreEqual(expected, e.Message);
             }
         }
-
+        
+        // Returns the object with parameterized constructor.
+      
+        [TestMethod]
+        public void ReturnObjectWithParameterizedConstructor()
+        {
+            object expected = new MoodAnalyze("I am happy");
+            object actual = MoodAnalyseFactory.CreateObjectForMoodAnalyserParameterizedConstructor("MoodAnalyzer.MoodAnalyze", "MoodAnalyze", "I am happy");
+            expected.Equals(actual);
+        }
+        
+        // Returns the object with parameterized constructor-> Class Not found Exception
+        
+        [TestMethod]
+        public void ReturnObjectWithParameterizedConstructor1()
+        {
+            string expected = "Class not found";
+            try
+            {
+                object actual = MoodAnalyseFactory.CreateObjectForMoodAnalyserParameterizedConstructor("MoodAnalyzer.MoodAnalyzer", "MoodAnalyzer", "I am happy");
+            }
+            catch (CustomAnalyseException e)
+            {
+                Assert.AreEqual(expected, e.Message);
+            }
+        }
+        
+        // Returns the object with parameterized constructor-> Constructor Not found Exception
+        
+        [TestMethod]
+        public void ReturnObjectWithParameterizedConstructor2()
+        {
+            string expected = "Constructor not found";
+            try
+            {
+                object actual = MoodAnalyseFactory.CreateObjectForMoodAnalyserParameterizedConstructor("MoodAnalyzer.MoodAnalyze", "MoodAnalyzer", "I am happy");
+            }
+            catch (CustomAnalyseException e)
+            {
+                Assert.AreEqual(expected, e.Message);
+            }
+        }
 
     }
 }
