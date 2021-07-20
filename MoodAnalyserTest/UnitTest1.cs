@@ -162,6 +162,76 @@ namespace MoodAnalyzerTest
                 Assert.AreEqual(expected, e.Message);
             }
         }
+        // Invokes the method using reflection->return happy
+  
+        [TestMethod]
+        public void InvokeMethodUsingReflection()
+        {
+            string expected = "Happy";
+            string actual = MoodAnalyseFactory.InvokeMoodAnalyser("I am happy", "AnalyseMood");
+            expected.Equals(actual);
 
+        }
+      
+        // Invokes the method using reflection->return happy
+    
+        [TestMethod]
+        public void InvokeMethodUsingReflection1()
+        {
+            string expected = "No method found";
+            try
+            {
+                string actual = MoodAnalyseFactory.InvokeMoodAnalyser("I am happy", "AnalyserMood");
+                expected.Equals(actual);
+            }
+            catch (CustomAnalyseException me)
+            {
+                Assert.AreEqual(expected, me.Message);
+            }
+
+        }
+        //  Change the message dynamically using reflection.
+        
+        [TestMethod]
+        public void ChangeMessageDynamicallyUsingReflection()
+        {
+            string expected = "Happy";
+            string actual = MoodAnalyserFactory.SetFeild("Happy", "message");
+            expected.Equals(actual);
+        }
+      
+        // Changes the message dynamically using reflection.
+       
+        [TestMethod]
+        public void ChangeMessageDynamicallyUsingReflection1()
+        {
+            string expected = "Field is not found";
+            try
+            {
+                string actual = MoodAnalyseFactory.SetFeild("Happy", "msg");
+                expected.Equals(actual);
+            }
+            catch (CustomAnalyseException e)
+            {
+                Assert.AreEqual(expected, e.Message);
+            }
+        }
+       
+        // Changes the message dynamically using reflection.
+       
+        [TestMethod]
+        public void ChangeMessageDynamicallyUsingReflection2()
+        {
+            string expected = "Message should not be null";
+            try
+            {
+                string actual = MoodAnalyseFactory.SetFeild(null, "message");
+                expected.Equals(actual);
+            }
+            catch (CustomAnalyseException e)
+            {
+                Assert.AreEqual(expected, e.Message);
+            }
+        }
     }
 }

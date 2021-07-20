@@ -5,10 +5,11 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using MoodAnalyzer;
 
 namespace MoodAnalyser
 {
-    class MoodAnalyseFactory
+   public class MoodAnalyseFactory
     {
         public static object CreateObjectForMoodAnalyser(string className, string constructorName)
         {
@@ -67,6 +68,40 @@ namespace MoodAnalyser
             catch (Exception e)
             {
                 return e;
+            }
+        }
+        public static string InvokeMoodAnalyser(string message, string methodName)
+        {
+            try
+            {
+                Type type = Type.GetType("MoodAnalyzer.MoodAnalyze");
+                object moodAnalyseObject = MoodAnalyseFactory.CreateObjectForMoodAnalyserParameterizedConstructor("MoodAnalyzer.MoodAnalyze", "MoodAnalyze", message);
+                MethodInfo methodInfo = type.GetMethod(methodName);
+                object mood = methodInfo.Invoke(moodAnalyseObject, null);
+                return mood.ToString();
+            }
+            catch (NullReferenceException e)
+            {
+                throw new CustomAnalyseException(CustomAnalyseException.ExceptionType.NO_METHOD_FOUND, "No method found");
+            }
+        }
+        public static string SetFeild(string message, string fieldName)
+        {
+            try
+            {
+                MoodAnalyze moodAnalyze = new MoodAnalyze();
+                Type type = typeof(MoodAnalyze);
+                FieldInfo fieldInfo = type.GetField(fieldName, BindingFlags.Public | BindingFlags.Instance);
+                if (message == null)
+                {
+                    throw new CustomAnalyseException(CustomAnalyseException.ExceptionType.NULL_EXCEPTION, "Message should not be null");
+                }
+                fieldInfo.SetValue(moodAnalyze, message);
+                return moodAnalyze.message;
+            }
+            catch (NullReferenceException)
+            {
+                throw new CustomAnalyseException(CustomAnalyseException.ExceptionType.NO_FEILD_EXIST, "Field is not found");
             }
         }
     }

@@ -11,7 +11,7 @@ namespace MoodAnalyzer
     public class MoodAnalyze
     {
         //instance varriable
-        string message;
+      public  string message;
         public MoodAnalyze()
         {
 
