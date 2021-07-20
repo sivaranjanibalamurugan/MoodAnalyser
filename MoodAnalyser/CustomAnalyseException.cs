@@ -13,7 +13,7 @@ namespace MoodAnalyser
         //enum for defining constants
         public enum ExceptionType
         {
-            NULL_EXCEPTION,EMPTY_EXCEPTION
+            NULL_EXCEPTION,EMPTY_EXCEPTION, CLASS_NOT_FOUND, CONSTRUCTOR_NOT_FOUND
         }
         //parameterized constructor and also using base() method
         public CustomAnalyseException(ExceptionType type, string message): base(message)
